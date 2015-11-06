@@ -1,0 +1,40 @@
+(define (cont-frac N D k)
+  (define (cf i)
+    (if (= k i)
+        (/ (N k) (D k))
+        (/ (N i) (+ (D i) (cf (+ i 1))))))
+  (cf 1))
+
+(define (cont-frac-iter N D k)
+  (define (iter i result)
+    (if (= i 0)
+        result
+        (iter (- i 1)
+              (/ (N i) (+ (D i) result)))))
+  (iter (- k 1) (/ (N k) (D k))))
+
+(define (golden-ratio k)
+  (+ 1 (cont-frac (lambda (i) 1.0)
+                  (lambda (i) 1.0)
+                  k)))
+
+(define (golden-ratio-iter k)
+  (+ 1 (cont-frac-iter (lambda (i) 1.0)
+                  (lambda (i) 1.0)
+                  k)))
+
+(define (e k)
+  (define (N i) 1)
+  (define (D i)
+    (if (= 0 (remainder (+ i 1) 3))
+        (* 2 (/ (+ i 1) 3))
+        1))
+  (+ 2.0 (cont-frac N D k)))
+
+(define (tan-cf x k)
+  (define (N i)
+    (if (= i 1) x
+        (- (* x x))))
+  (define (D i)
+    (- (* i 2) 1))
+  (exact->inexact (cont-frac-iter N D k)))
