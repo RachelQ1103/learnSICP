@@ -1,0 +1,5 @@
+(define (reverse items)
+  (let ((rest (cdr items)))
+    (if (null? rest)
+        (car items)
+        (cons (reverse (cdr items)) (car items)))))
