@@ -1,8 +1,0 @@
-(define (same-parity first . rest)
-  (define (same-parity-iter first . rest remainder-val)
-    (let ((next (car rest)))
-     (if (= (/ next 2) remainder-val)
-         ((append first next)
-         (same-parity-iter next . (cdr rest) remainder-val)) 
-         (same-parity-iter next . (cdr rest) remainder-val))))
-  (same-parity-iter first . rest (remainder first 2)))
