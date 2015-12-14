@@ -1,0 +1,6 @@
+(define (ripple-carry-adder A B S C)
+  (let ((c-in (make-wire)))
+    (if (null? (cdr A))
+        (set-signal! c-in 0)
+        (ripple-carry-adder (cdr A) (cdr B) (cdr S) c-in))
+    (full-adder (car A) (car B) c-in (car S) C)))
